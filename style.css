@@ -1,0 +1,27 @@
+body {
+    background-color: darkgray;
+}
+
+
+
+.baseTabuleiro {
+    display: flex;
+    display: grid;
+    grid-template-columns: repeat(8, 120px);
+}
+
+.basePreta {
+    width: 120px;
+    height: 120px;
+    background-color: black;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.baseBranca {
+    width: 120px;
+    height: 120px;
+    background-color: white;
+    text-align: center;
+}
