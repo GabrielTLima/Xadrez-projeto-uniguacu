@@ -1,0 +1,69 @@
+let jogadorAtual = "branco"
+
+const listaJogadas = document.querySelector(".listaJogadas")
+const textoVez = document.querySelector(".vezDoJogador")
+const textoMensagem = document.querySelector(".mensagem")
+const botaoNovaPartida = document.querySelector(".botaoNovaPartida")
+
+function adicionarJogadaNoHistorico(nomePeca, linhaOrigem, colunaOrigem, linhaDestino, colunaDestino) {
+    const casaOrigem = letrasColunas[colunaOrigem] + (8 - linhaOrigem)
+    const casaDestino = letrasColunas[colunaDestino] + (8 - linhaDestino)
+
+    const jogada = document.createElement("li")
+    jogada.textContent = `${nomePeca}: ${casaOrigem} -> ${casaDestino}`
+    listaJogadas.appendChild(jogada)
+}
+
+function atualizarVez() {
+    if(jogadorAtual === "branco") {
+        textoVez.textContent = "Vez das brancas"
+    } else {
+        textoVez.textContent = "Vez das pretas"
+    }
+}
+
+// Chamada no fim de toda jogada válida
+function finalizarJogada() {
+    // Troca o jogador da vez
+    if(jogadorAtual === "branco") {
+        jogadorAtual = "preto"
+    } else {
+        jogadorAtual = "branco"
+    }
+    atualizarVez()
+
+    // Tira a borda vermelha do rei da jogada anterior, se tiver
+    const celulaEmXeque = document.querySelector(".reiEmXeque")
+    if(celulaEmXeque !== null) {
+        celulaEmXeque.classList.remove("reiEmXeque")
+    }
+
+    // Verifica se o novo jogador da vez está em xeque, xeque-mate ou afogado
+    const estaEmXeque = reiEmXeque(tabuleiroPecas, jogadorAtual)
+    const temJogada = temJogadaValida(tabuleiroPecas, jogadorAtual)
+
+    if(estaEmXeque) {
+        const rei = encontrarRei(tabuleiroPecas, jogadorAtual)
+        const celulaRei = document.querySelector(`.celula[data-linha="${rei.linha}"][data-coluna="${rei.coluna}"]`)
+        celulaRei.classList.add("reiEmXeque")
+    }
+
+    if(estaEmXeque && temJogada === false) {
+        if(jogadorAtual === "branco") {
+            textoMensagem.textContent = "XEQUE-MATE! As pretas venceram."
+        } else {
+            textoMensagem.textContent = "XEQUE-MATE! As brancas venceram."
+        }
+    } else if(estaEmXeque === false && temJogada === false) {
+        textoMensagem.textContent = "EMPATE! Afogamento."
+    } else if(estaEmXeque) {
+        textoMensagem.textContent = "XEQUE!"
+    } else {
+        textoMensagem.textContent = ""
+    }
+}
+
+// Recarregar a página faz o jogo começar do zero
+botaoNovaPartida.addEventListener("click", function () {
+    location.reload()
+})

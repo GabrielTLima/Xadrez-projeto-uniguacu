@@ -1,0 +1,144 @@
+body {
+    background-color: darkgray;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    text-align: center;
+    padding: 10px;
+}
+
+header h1 {
+    margin: 0 0 10px 0;
+}
+
+.status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.vezDoJogador {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.botaoNovaPartida {
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* min-height deixa o espaço da mensagem reservado, para a tela não "pular" */
+.mensagem {
+    min-height: 24px;
+    margin: 10px 0 0 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-bottom: 20px;
+}
+
+/* vmin = 1% do menor lado da tela, assim o tabuleiro muda de tamanho junto com a tela */
+.baseTabuleiro {
+    display: flex;
+    display: grid;
+    grid-template-columns: repeat(8, 9vmin);
+}
+
+.basePreta {
+    width: 9vmin;
+    height: 9vmin;
+    background-color: black;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.baseBranca {
+    width: 9vmin;
+    height: 9vmin;
+    background-color: white;
+    text-align: center;
+}
+
+.celula {
+    position: relative;
+}
+
+.peca {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: grab;
+}
+
+/* pointer-events: none deixa o arrastar "atravessar" o texto das coordenadas */
+.coordenadaNumero {
+    position: absolute;
+    top: 2px;
+    left: 3px;
+    font-size: 12px;
+    color: gray;
+    pointer-events: none;
+}
+
+.coordenadaLetra {
+    position: absolute;
+    bottom: 2px;
+    right: 3px;
+    font-size: 12px;
+    color: gray;
+    pointer-events: none;
+}
+
+/* Destaque da peça sendo movimentada (uma borda por dentro, sem mudar a cor da casa) */
+.casaSelecionada {
+    outline: 4px solid gold;
+    outline-offset: -4px;
+}
+
+.reiEmXeque {
+    outline: 4px solid red;
+    outline-offset: -4px;
+}
+
+.historico {
+    width: 250px;
+    height: 72vmin;
+    box-sizing: border-box;
+    background-color: white;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.historico h2 {
+    text-align: center;
+}
+
+/* Telas pequenas (celular): o tabuleiro fica maior e o histórico vai para baixo */
+@media (max-width: 700px) {
+    .baseTabuleiro {
+        grid-template-columns: repeat(8, 11vmin);
+    }
+
+    .basePreta, .baseBranca {
+        width: 11vmin;
+        height: 11vmin;
+    }
+
+    .historico {
+        width: 88vmin;
+        height: 200px;
+    }
+}

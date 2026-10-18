@@ -1,17 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Jogo de Xadrez</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <header>
+        <h1>Jogo de Xadrez</h1>
+        <div class="status">
+            <p class="vezDoJogador"></p>
+            <button class="botaoNovaPartida">Nova partida</button>
+        </div>
+        <p class="mensagem"></p>
+    </header>
     <main>
         <section class="baseTabuleiro">
             
         </section>
+        <section class="historico">
+            <h2>Histórico de jogadas</h2>
+            <ol class="listaJogadas">
+
+            </ol>
+        </section>
     </main>
 </body>
-<script src="script.js"></script>
+<script src="js/board.js"></script>
+<script src="js/pieces.js"></script>
+<script src="js/rules.js"></script>
+<script src="js/game.js"></script>
+<script src="js/main.js"></script>
 </html>
