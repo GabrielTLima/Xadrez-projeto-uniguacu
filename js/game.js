@@ -22,9 +22,7 @@ function atualizarVez() {
     }
 }
 
-// Chamada no fim de toda jogada válida
 function finalizarJogada() {
-    // Troca o jogador da vez
     if(jogadorAtual === "branco") {
         jogadorAtual = "preto"
     } else {
@@ -32,13 +30,11 @@ function finalizarJogada() {
     }
     atualizarVez()
 
-    // Tira a borda vermelha do rei da jogada anterior, se tiver
     const celulaEmXeque = document.querySelector(".reiEmXeque")
     if(celulaEmXeque !== null) {
         celulaEmXeque.classList.remove("reiEmXeque")
     }
 
-    // Verifica se o novo jogador da vez está em xeque, xeque-mate ou afogado
     const estaEmXeque = reiEmXeque(tabuleiroPecas, jogadorAtual)
     const temJogada = temJogadaValida(tabuleiroPecas, jogadorAtual)
 
@@ -63,7 +59,6 @@ function finalizarJogada() {
     }
 }
 
-// Recarregar a página faz o jogo começar do zero
 botaoNovaPartida.addEventListener("click", function () {
     location.reload()
 })
