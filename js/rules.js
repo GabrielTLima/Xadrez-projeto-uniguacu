@@ -1,4 +1,3 @@
-// Procura onde está o rei de uma cor e devolve a linha e a coluna dele
 function encontrarRei(matriz, cor) {
     for(let linha = 0; linha < 8; linha++){
         for(let coluna = 0; coluna < 8; coluna++){
@@ -10,7 +9,6 @@ function encontrarRei(matriz, cor) {
     return null
 }
 
-// Verifica se alguma peça adversária consegue chegar na casa do rei
 function reiEmXeque(matriz, cor) {
     const rei = encontrarRei(matriz, cor)
 
@@ -27,9 +25,7 @@ function reiEmXeque(matriz, cor) {
     return false
 }
 
-// Função principal de validação: toda jogada passa por aqui antes de acontecer
 function movimentoValido(matriz, linhaOrigem, colunaOrigem, linhaDestino, colunaDestino, corDoJogador) {
-    // Os valores que vêm do dataset do HTML são textos ("6"), então transformamos em números (6)
     linhaOrigem = Number(linhaOrigem)
     colunaOrigem = Number(colunaOrigem)
     linhaDestino = Number(linhaDestino)
@@ -38,28 +34,21 @@ function movimentoValido(matriz, linhaOrigem, colunaOrigem, linhaDestino, coluna
     const peca = matriz[linhaOrigem][colunaOrigem]
     const pecaDestino = matriz[linhaDestino][colunaDestino]
 
-    // Não tem peça na origem
     if(peca === null) {
         return false
     }
 
-    // A peça não é do jogador da vez
     if(corDaPeca(peca) !== corDoJogador) {
         return false
     }
 
-    // Tentou capturar uma peça da mesma cor (soltar a peça no mesmo lugar também cai aqui)
     if(pecaDestino !== null && corDaPeca(pecaDestino) === corDoJogador) {
         return false
     }
 
-    // A peça não anda desse jeito (aqui também é verificado se o caminho está livre)
     if(movimentoDaPeca(matriz, linhaOrigem, colunaOrigem, linhaDestino, colunaDestino) === false) {
         return false
     }
-
-    // Faz a jogada numa CÓPIA da matriz e verifica se o próprio rei fica em xeque
-    // Assim o tabuleiro de verdade não é alterado
     const copia = []
     for(let linha = 0; linha < 8; linha++){
         const novaLinha = []
@@ -77,9 +66,6 @@ function movimentoValido(matriz, linhaOrigem, colunaOrigem, linhaDestino, coluna
 
     return true
 }
-
-// Testa todas as jogadas possíveis de uma cor
-// Se nenhuma for válida, é xeque-mate (se estiver em xeque) ou afogamento (se não estiver)
 function temJogadaValida(matriz, cor) {
     for(let linhaOrigem = 0; linhaOrigem < 8; linhaOrigem++){
         for(let colunaOrigem = 0; colunaOrigem < 8; colunaOrigem++){
